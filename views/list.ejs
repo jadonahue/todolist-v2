@@ -1,0 +1,37 @@
+<%- include("header"); -%>
+
+    <div class="box" id="heading">
+        <h1>
+            <%= listTitle %>
+        </h1>
+    </div>
+
+    <div class="box">
+
+        <% newListItems.forEach(function(item){ %>
+            <form action="/delete" method="post">
+
+                <div class="item">
+
+                    <!-- When checkbox is selected or un-selected this form submits. Also checks id of the item  checked. -->
+                    <input type="checkbox" name="checkbox" value="<%= item._id %>" onChange="this.form.submit()">
+                    <p>
+                        <!-- This .name puts in the name of the item only. -->
+                        <%= item.name %>
+                    </p>
+                </div>
+
+                <!-- This allows us to delete checked items on custom lists. -->
+                <input type="hidden" name="listName" value="<%= listTitle %>"></input>
+            </form>
+        <% }) %>
+
+                <form class="item" action="/" method="post">
+                    <input type="text" name="newItem" placeholder="To Do Item" autocomplete="off">
+
+                    <!-- This uses the name list and value lastTitle to help push the item to proper array based on which list is used. -->
+                    <button type="submit" name="list" value=<%=listTitle %>>+</button>
+                </form>
+    </div>
+
+<%- include("footer"); -%>
